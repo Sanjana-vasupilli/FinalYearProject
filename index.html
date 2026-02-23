@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Indian Food Recognition & Calorie Estimator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>🍛 Gemini Flash-Based Indian Food Recognition</h1>
+    <p class="subtitle">Upload an image to identify the food and estimate calories</p>
+
+    <div class="card" id="uploadCard">
+      <input type="file" id="imageUpload" accept="image/*">
+      <canvas id="previewCanvas"></canvas>
+      <button id="analyzeBtn">Analyze Food</button>
+    </div>
+
+    <div class="result-card" id="resultCard">
+      <h2>Recognition Result</h2>
+      <p><strong>Food Item:</strong> <span id="foodName">--</span></p>
+      <p><strong>Estimated Calories:</strong> <span id="calories">--</span></p>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
