@@ -1,51 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Food Recognition</title>
+<script>
+const foods = ["🍛","🥘","🍚","🍕","🍔","🥗","🌮","🍜"];
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+function createFood() {
+    const food = document.createElement("div");
+    food.classList.add("food");
+    food.innerText = foods[Math.floor(Math.random() * foods.length)];
 
-<body>
+    food.style.left = Math.random() * 100 + "vw";
+    food.style.animationDuration = (Math.random() * 3 + 3) + "s";
 
-<div class="bg-animation"></div>
+    document.body.appendChild(food);
 
-<div class="main-container">
+    setTimeout(() => {
+        food.remove();
+    }, 6000);
+}
 
-    <h1 class="fade-in">🍽 AI Food & Calorie Estimator</h1>
-    <p class="tagline fade-in">Powered by Gemini Flash Multimodal AI</p>
-
-    <div class="glass-card slide-up">
-
-        <div class="button-group">
-            <label class="upload-btn">
-                Upload Image
-                <input type="file" id="imageInput" hidden>
-            </label>
-
-            <button class="camera-btn" onclick="startCamera()">Click Image</button>
-        </div>
-
-        <video id="video" autoplay class="hidden"></video>
-        <button id="captureBtn" class="capture-btn hidden" onclick="captureImage()">Capture</button>
-
-        <canvas id="canvas"></canvas>
-
-        <button onclick="analyzeImage()" class="analyze-btn">
-            Analyze with AI
-        </button>
-
-        <div id="loader" class="loader hidden"></div>
-
-    </div>
-
-    <div id="resultSection" class="result-section hidden"></div>
-
-</div>
-
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+setInterval(createFood, 800);
+</script>
