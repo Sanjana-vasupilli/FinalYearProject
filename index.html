@@ -1,20 +1,47 @@
-<script>
-const foods = ["🍛","🥘","🍚","🍕","🍔","🥗","🌮","🍜"];
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Food Recognition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-function createFood() {
-    const food = document.createElement("div");
-    food.classList.add("food");
-    food.innerText = foods[Math.floor(Math.random() * foods.length)];
+<header>
+    <h2>🍽 AI Nutrition Analyzer</h2>
+</header>
 
-    food.style.left = Math.random() * 100 + "vw";
-    food.style.animationDuration = (Math.random() * 3 + 3) + "s";
+<div class="container">
 
-    document.body.appendChild(food);
+    <div class="card">
 
-    setTimeout(() => {
-        food.remove();
-    }, 6000);
-}
+        <h1>Food Recognition & Calorie Estimation</h1>
+        <p class="subtitle">Upload or capture food to estimate calories instantly</p>
 
-setInterval(createFood, 800);
-</script>
+        <div class="button-row">
+            <label class="btn upload-btn">
+                Upload Image
+                <input type="file" id="imageInput" hidden>
+            </label>
+
+            <button class="btn camera-btn" onclick="startCamera()">Use Camera</button>
+        </div>
+
+        <video id="video" class="hidden" autoplay></video>
+        <button id="captureBtn" class="btn capture-btn hidden" onclick="captureImage()">Capture</button>
+
+        <canvas id="canvas"></canvas>
+
+        <button class="btn analyze-btn" onclick="analyzeImage()">Analyze Food</button>
+
+        <div id="loader" class="loader hidden"></div>
+
+    </div>
+
+    <div id="resultSection" class="result hidden"></div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
