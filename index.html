@@ -3,43 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Food Recognition & Calorie Estimator</title>
+<title>AI Food Recognition</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 </head>
+
 <body>
 
-<div class="background"></div>
+<div class="bg-animation"></div>
 
-<div class="container">
+<div class="main-container">
 
-    <h1 class="title">🍽 AI Food Recognition</h1>
-    <p class="subtitle">Powered by Gemini Flash Multimodal AI</p>
+    <h1 class="fade-in">🍽 AI Food & Calorie Estimator</h1>
+    <p class="tagline fade-in">Powered by Gemini Flash Multimodal AI</p>
 
-    <div class="card">
+    <div class="glass-card slide-up">
 
-        <label class="upload-area">
-            <input type="file" id="imageInput" hidden>
-            <div class="upload-content">
-                <p>Click to Upload Food Image</p>
-            </div>
-        </label>
+        <div class="button-group">
+            <label class="upload-btn">
+                Upload Image
+                <input type="file" id="imageInput" hidden>
+            </label>
 
-        <div class="preview-container">
-            <canvas id="canvas"></canvas>
+            <button class="camera-btn" onclick="startCamera()">Click Image</button>
         </div>
 
+        <video id="video" autoplay class="hidden"></video>
+        <button id="captureBtn" class="capture-btn hidden" onclick="captureImage()">Capture</button>
+
+        <canvas id="canvas"></canvas>
+
         <button onclick="analyzeImage()" class="analyze-btn">
-            Analyze Food
+            Analyze with AI
         </button>
 
         <div id="loader" class="loader hidden"></div>
 
     </div>
 
-    <div id="result" class="result-card hidden"></div>
+    <div id="resultSection" class="result-section hidden"></div>
 
 </div>
 
