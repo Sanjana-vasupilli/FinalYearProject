@@ -6,11 +6,15 @@ const ctx = canvas.getContext("2d");
 const loader = document.getElementById("loader");
 const resultSection = document.getElementById("resultSection");
 
-let stream;
+let stream = null;
 
-/* Upload Image */
+/* =========================
+   Upload Image
+========================= */
 imageInput.addEventListener("change", function () {
     const file = this.files[0];
+    if (!file) return;
+
     const reader = new FileReader();
 
     reader.onload = function (event) {
@@ -26,7 +30,10 @@ imageInput.addEventListener("change", function () {
     reader.readAsDataURL(file);
 });
 
-/* Start Camera */
+
+/* =========================
+   Start Camera
+========================= */
 function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(s => {
@@ -35,46 +42,68 @@ function startCamera() {
             video.classList.remove("hidden");
             captureBtn.classList.remove("hidden");
         })
-        .catch(err => alert("Camera access denied!"));
+        .catch(err => {
+            alert("Camera access denied!");
+        });
 }
 
-/* Capture Image */
+
+/* =========================
+   Capture Image
+========================= */
 function captureImage() {
+    if (!stream) return;
+
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
 
+    // Stop camera
+    stream.getTracks().forEach(track => track.stop());
+
     video.classList.add("hidden");
     captureBtn.classList.add("hidden");
-
-    stream.getTracks().forEach(track => track.stop());
 }
 
-/* Analyze */
+
+/* =========================
+   Analyze Image
+========================= */
 function analyzeImage() {
+
+    if (!canvas.width) {
+        alert("Please upload or capture an image first!");
+        return;
+    }
+
+    loader.classList.remove("hidden");
+    resultSection.classList.add("hidden");
+
     canvas.toBlob(function(blob) {
 
-        loader.classList.remove("hidden");
-        resultSection.classList.add("hidden");
-
         const formData = new FormData();
-        formData.append("image", blob);
+        formData.append("image", blob, "food.jpg");
 
         fetch("/analyze", {
             method: "POST",
-            body: formData,
+            body: formData
         })
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => {
+
             loader.classList.add("hidden");
 
             resultSection.innerHTML = `
-                <h2>🍛 ${data.food_name}</h2>
+                <h2>${data.food_name}</h2>
                 <h3>🔥 ${data.calories}</h3>
                 <p>${data.nutrition}</p>
             `;
 
             resultSection.classList.remove("hidden");
+        })
+        .catch(error => {
+            loader.classList.add("hidden");
+            alert("Error analyzing image");
         });
 
     }, "image/jpeg");
