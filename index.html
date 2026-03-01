@@ -1,22 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>AI Food Recognition & Calorie Estimator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Food Recognition & Calorie Estimator</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
-<h1>Gemini Flash Food Recognition & Calorie Estimator</h1>
+<div class="background"></div>
 
-<div class="upload-box">
-    <input type="file" id="imageInput">
-    <canvas id="canvas"></canvas>
-    <button onclick="analyzeImage()">Analyze</button>
+<div class="container">
+
+    <h1 class="title">🍽 AI Food Recognition</h1>
+    <p class="subtitle">Powered by Gemini Flash Multimodal AI</p>
+
+    <div class="card">
+
+        <label class="upload-area">
+            <input type="file" id="imageInput" hidden>
+            <div class="upload-content">
+                <p>Click to Upload Food Image</p>
+            </div>
+        </label>
+
+        <div class="preview-container">
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <button onclick="analyzeImage()" class="analyze-btn">
+            Analyze Food
+        </button>
+
+        <div id="loader" class="loader hidden"></div>
+
+    </div>
+
+    <div id="result" class="result-card hidden"></div>
+
 </div>
 
-<div id="result"></div>
-
 <script src="{{ url_for('static', filename='script.js') }}"></script>
-
 </body>
 </html>
