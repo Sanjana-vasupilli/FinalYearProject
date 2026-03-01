@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>AI Indian Food Recognition & Calorie Estimator</title>
-  <link rel="stylesheet" href="style.css">
+    <title>AI Food Recognition & Calorie Estimator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-  <div class="container">
-    <h1>🍛 Gemini Flash-Based Indian Food Recognition</h1>
-    <p class="subtitle">Upload an image to identify the food and estimate calories</p>
+<h1>Gemini Flash Food Recognition & Calorie Estimator</h1>
 
-    <div class="card" id="uploadCard">
-      <input type="file" id="imageUpload" accept="image/*">
-      <canvas id="previewCanvas"></canvas>
-      <button id="analyzeBtn">Analyze Food</button>
-    </div>
+<div class="upload-box">
+    <input type="file" id="imageInput">
+    <canvas id="canvas"></canvas>
+    <button onclick="analyzeImage()">Analyze</button>
+</div>
 
-    <div class="result-card" id="resultCard">
-      <h2>Recognition Result</h2>
-      <p><strong>Food Item:</strong> <span id="foodName">--</span></p>
-      <p><strong>Estimated Calories:</strong> <span id="calories">--</span></p>
-    </div>
-  </div>
+<div id="result"></div>
 
-<script src="script.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>
